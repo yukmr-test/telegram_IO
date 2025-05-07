@@ -5,7 +5,7 @@ from image_compressor import compress_image  # 後で作成予定
 from dotenv import load_dotenv
 
 load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+IMGCOMP_BOT_TOKEN= = os.getenv("BOT_TOKEN")
 
 app = Flask(__name__)
 

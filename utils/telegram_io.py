@@ -1,7 +1,7 @@
 import os
 import requests
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("MGCOMP_BOT_TOKENI")
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 def extract_message_info(data):

@@ -13,7 +13,7 @@ app = Flask(__name__)
 def index():
     return "Image Compression Bot is running", 200
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
     data = request.get_json()
     message, chat_id = extract_message_info(data)
@@ -26,7 +26,7 @@ def webhook():
         # Telegramは複数サイズで送ってくる → 最後の（最大サイズ）を選ぶ
         file_id = message["photo"][-1]["file_id"]
         try:
-            compressed_file = compress_image(file_id)  # file_id を使って画像取得 → 圧縮
+            compressed_file = compress_image(return "dummy.jpg")  # file_id を使って画像取得 → 圧縮(今はテスト用ダミーデータ)
             send_photo_message(chat_id, compressed_file)
         except Exception as e:
             send_text_message(chat_id, "画像処理に失敗しました。")

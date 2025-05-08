@@ -8,7 +8,7 @@ FILE_API_URL = f"https://api.telegram.org/file/bot{BOT_TOKEN}"
 
 def download_image(file_id):
     """
-    Telegramのfile_idから画像をダウンロードし、そのまま保存
+    Telegramのfile_idから画像をダウンロードし、そのまま保存する
     """
     try:
         # ファイルのパスを取得する

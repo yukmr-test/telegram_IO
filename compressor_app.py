@@ -27,8 +27,9 @@ def webhook():
         file_id = message["photo"][-1]["file_id"]
         try:
            # compressed_file = compress_image(file_id)  # file_id を使って画像取得 → 圧縮
-            compressed_file = return "dummy.jpg"
-            send_photo_message(chat_id, compressed_file)
+        def dummy_compress():
+            return "dummy.jpg"
+        compressed_file = dummy_compress()  # ✅ 返り値を変数に代入            send_photo_message(chat_id, compressed_file)
         except Exception as e:
             send_text_message(chat_id, "画像処理に失敗しました。")
             print(f"[ERROR] {e}")

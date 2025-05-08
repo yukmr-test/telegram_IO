@@ -11,7 +11,7 @@ def download_image(file_id):
     Telegramのfile_idから画像をダウンロードし、そのまま保存
     """
     try:
-        # ファイルのパスを取得
+        # ファイルのパスを取得する
         resp = requests.get(f"{API_URL}/getFile?file_id={file_id}")
         resp.raise_for_status()
         file_data = resp.json()

@@ -21,15 +21,16 @@ def webhook():
     if not message or not chat_id:
         return "No valid message", 200
 
+    # 仮の画像処理関数（後で圧縮処理を実装予定）
+    def dummy_compress():
+        return "dummy.jpg"
+
     # 写真の処理（画像付きメッセージであるかチェック）
     if "photo" in message:
-        # Telegramは複数サイズで送ってくる → 最後の（最大サイズ）を選ぶ
         file_id = message["photo"][-1]["file_id"]
         try:
-           # compressed_file = compress_image(file_id)  # file_id を使って画像取得 → 圧縮
-        def dummy_compress():
-            return "dummy.jpg"
-        compressed_file = dummy_compress()  # ✅ 返り値を変数に代入            send_photo_message(chat_id, compressed_file)
+            compressed_file = dummy_compress()  # ✅ 正しく関数を呼び出す
+            send_photo_message(chat_id, compressed_file)
         except Exception as e:
             send_text_message(chat_id, "画像処理に失敗しました。")
             print(f"[ERROR] {e}")

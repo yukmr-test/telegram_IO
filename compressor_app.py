@@ -26,7 +26,8 @@ def webhook():
         # Telegramは複数サイズで送ってくる → 最後の（最大サイズ）を選ぶ
         file_id = message["photo"][-1]["file_id"]
         try:
-            compressed_file = compress_image(return "dummy.jpg")  # file_id を使って画像取得 → 圧縮(今はテスト用ダミーデータ)
+           # compressed_file = compress_image(file_id)  # file_id を使って画像取得 → 圧縮
+            compressed_file = return "dummy.jpg"
             send_photo_message(chat_id, compressed_file)
         except Exception as e:
             send_text_message(chat_id, "画像処理に失敗しました。")

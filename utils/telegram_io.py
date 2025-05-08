@@ -1,8 +1,10 @@
+#画像の受け渡し処理
+
 import os
 import requests
 
 # 環境変数の取得（修正済み）
-BOT_TOKEN = os.getenv("IMGCOMP_BOT_TOKEN")  # ❌ 'MGCOMP_BOT_TOKENI' → ✅ 'IMGCOMP_BOT_TOKEN'
+BOT_TOKEN = os.getenv("IMGCOMP_BOT_TOKEN")  
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
 def extract_message_info(data):

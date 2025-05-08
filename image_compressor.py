@@ -1,34 +1,31 @@
+#ダミー圧縮処理
 import os
 import requests
 
-# 環境変数の取得（統一を確認）
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
-FILE_API_URL = f"https://api.telegram.org/file/bot{BOT_TOKEN}"
+BOT_TOKEN = os.getenv("IMGCOMP_BOT_TOKEN")
+FILE_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/getFile"
+DOWNLOAD_URL = f"https://api.telegram.org/file/bot{BOT_TOKEN}"
 
-def download_image(file_id):
+def compress_image(file_id):
     """
-    Telegramのfile_idから画像をダウンロードし、そのまま保存する
+    ダミーの圧縮処理：Telegramから画像を取得し、保存するだけ
     """
     try:
-        # ファイルのパスを取得する
-        resp = requests.get(f"{API_URL}/getFile?file_id={file_id}")
-        resp.raise_for_status()
-        file_data = resp.json()
-
-        # エラーハンドリング（APIレスポンスに result があるか確認）
-        if "result" not in file_data or "file_path" not in file_data["result"]:
-            print("エラー: ファイル情報が取得できませんでした。")
-            return None
-
-        file_path = file_data["result"]["file_path"]
+        # Telegramからファイルパスを取得
+        res = requests.get(FILE_API_URL, params={"file_id": file_id})
+        res.raise_for_status()
+        file_path = res.json()["result"]["file_path"]
 
         # 画像をダウンロード
-        file_url = f"{FILE_API_URL}/{file_path}"
-        resp = requests.get(file_url)
-        resp.raise_for_status()
+        file_url = f"{DOWNLOAD_URL}/{file_path}"
+        img_data = requests.get(file_url)
+        img_data.raise_for_status()
 
-        # ファイル保存（そのまま）
-        local_filename = "downloaded_image.jpg"
-        with open(local_filename, "wb") as f:
-            f.write(resp.content
+        # 保存先のファイルパス
+        save_path = f"compressed_{os.path.basename(file_path)}"
+        with open(save_path, "wb") as f:
+            f.write(img_data.content)
+
+        return save_path
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Failed to compress image: {e}")
